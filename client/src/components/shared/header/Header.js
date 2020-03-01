@@ -1,14 +1,11 @@
 import React from 'react';
 import './Header.css';
 import logo from '../../../assets/images/dice.png';
+import Home from '../../home/Home';
+import Tables from '../../tables/Tables';
+import Odds from '../../odds/Odds';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function Header() {
 
@@ -27,10 +24,10 @@ function Header() {
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/tables">tables</NavLink>
+              <Link to="/tables"><NavLink>tables</NavLink></Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/odds">odds</NavLink>
+              <Link to="/odds"><NavLink>odds</NavLink></Link>
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/tomkennedycode" target="_blank">github</NavLink>
@@ -38,6 +35,17 @@ function Header() {
           </Nav>
         </Collapse>
       </Navbar>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/tables">
+          <Tables />
+        </Route>
+        <Route exact path="/odds">
+          <Odds />
+        </Route>
+      </Switch>
       </div>
     </Router>
   );
