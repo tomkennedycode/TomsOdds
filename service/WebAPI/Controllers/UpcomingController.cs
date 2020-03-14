@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebAPI.Domain.Models;
 using WebAPI.Domain.Services;
+using WebAPI.Domain.Builders;
 
 namespace WebAPI.Controllers
 {
@@ -13,20 +14,23 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class UpcomingController : ControllerBase
     {
-
         private readonly ILogger<UpcomingController> _logger;
         private readonly IUpcomingService _upcomingService;
+        private readonly IOddsBuilder _oddsBuilder;
 
-        public UpcomingController(ILogger<UpcomingController> logger, IUpcomingService upcomingService)
+        public UpcomingController(ILogger<UpcomingController> logger, IUpcomingService upcomingService, IOddsBuilder oddsBuilder)
         {
             _logger = logger;
             _upcomingService = upcomingService;
+            _oddsBuilder = oddsBuilder;
         }
 
         [HttpGet]
         public List<Upcoming> GetUpcomingMatches()
         {
-            var upcomingMatches = _upcomingService.GetUpcomingMatches();
+            List<OddsAPIData> data = Task.Run(() => _oddsBuilder.GetFullOdds()).Result;
+
+            var upcomingMatches = _upcomingService.GetUpcomingMatches(data);
             return upcomingMatches;
         }
     }

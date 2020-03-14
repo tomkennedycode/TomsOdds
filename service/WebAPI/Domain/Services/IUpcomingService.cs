@@ -6,6 +6,6 @@ namespace WebAPI.Domain.Services
 {
     public interface IUpcomingService
     {
-        List<Upcoming> GetUpcomingMatches();
+        List<Upcoming> GetUpcomingMatches(List<OddsAPIData> data);
     }
 }
