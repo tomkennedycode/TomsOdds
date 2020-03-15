@@ -4,14 +4,21 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using WebAPI.Domain.Models;
 using WebAPI.Domain.Builders;
+using Microsoft.Extensions.Configuration;
 
 namespace WebAPI.Services
 {
     public class OddsBuilder : IOddsBuilder
     {
+        IConfiguration _config;
+
+        public OddsBuilder(IConfiguration config){
+            _config = config;
+        }
+
         public async Task<List<OddsAPIData>> GetFullOdds()
         {
-            string apiKey = "";
+            string apiKey = _config.GetSection("APISettings").GetSection("APIKeyAllFootball").Value;
 
             using var client = new HttpClient();
             var result = await client.GetAsync(apiKey);
