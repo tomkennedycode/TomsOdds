@@ -1,20 +1,64 @@
 import React from 'react';
 import './Upcoming.css';
-import { Container, Jumbotron, Button } from 'reactstrap';
+import { Container, Table } from 'reactstrap';
 
-function Upcoming() {
+class Upcoming extends React.Component {
 
-  return (
-    <div>
-      <br />
-      <Container>
-        <hr className="my-2" />
+  state = {
+    matches: [],
+  }
+
+  componentDidMount() {
+    fetch('https://localhost:5001/api/upcoming')
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({ matches: data})
+      console.log(this.state.matches);
+    })
+    .catch(console.log)
+  }
+
+  SortData = (matches) => {
+    const order = matches.map((match) =>
+      <thead>
+        <tr>
+          <th>{match.homeTeam}</th>
+          <th>{match.awayTeam}</th>
+          <th>{match.matchDate}</th>
+          <th>{match.league}</th>
+        </tr>
+      </thead>
+    );
+
+    return (
+    <Table>
+      <thead>
+        <tr>
+          <th>Home Team</th>
+          <th>Away Team</th>
+          <th>Match Time</th>
+          <th>League</th>
+        </tr>
+      </thead>
+      {order}
+    </Table>
+    )
+
+  }
+
+  render() {
+    return (
+      <div>
         <br />
-        <p>The upcoming premier league matches are:</p>
-
-      </Container>
-    </div>
-  );
+        <Container>
+          <hr className="my-2" />
+          <br />
+          <p>The upcoming matches are:</p>
+          {this.SortData(this.state.matches)}
+        </Container>
+      </div>
+    )
+  }
 }
 
 export default Upcoming;
