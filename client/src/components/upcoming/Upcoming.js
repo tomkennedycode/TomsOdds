@@ -20,14 +20,14 @@ class Upcoming extends React.Component {
 
   SortData = (matches) => {
     const order = matches.map((match) =>
-      <thead>
+      <tbody>
         <tr>
-          <th>{match.homeTeam}</th>
-          <th>{match.awayTeam}</th>
-          <th>{match.matchDate}</th>
-          <th>{match.league}</th>
+          <td>{match.homeTeam}</td>
+          <td>{match.awayTeam}</td>
+          <td>{match.matchDate}</td>
+          <td>{match.league}</td>
         </tr>
-      </thead>
+      </tbody>
     );
 
     return (

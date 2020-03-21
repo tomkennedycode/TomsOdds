@@ -3,7 +3,7 @@ import './Header.css';
 import logo from '../../../assets/images/dice.png';
 import Home from '../../home/Home';
 import Upcoming from '../../upcoming/Upcoming';
-import Odds from '../../odds/Odds';
+import AccumulatorBuilder from '../../accumulatorbuilder/AccumulatorBuilder';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -27,7 +27,7 @@ function Header() {
               <Link to="/upcoming"><NavLink>upcoming</NavLink></Link>
             </NavItem>
             <NavItem>
-              <Link to="/odds"><NavLink>odds</NavLink></Link>
+              <Link to="/accumulator"><NavLink>accumulator builder</NavLink></Link>
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/tomkennedycode" target="_blank">github</NavLink>
@@ -42,8 +42,8 @@ function Header() {
         <Route exact path="/upcoming">
           <Upcoming />
         </Route>
-        <Route exact path="/odds">
-          <Odds />
+        <Route exact path="/accumulator">
+          <AccumulatorBuilder />
         </Route>
       </Switch>
       </div>
